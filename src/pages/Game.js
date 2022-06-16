@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../features/Navbar/Navbar.js'
 import PlayerLobbyInfo from '../features/PlayerLobbyInfo/PlayerLobbyInfo.js'
 import { HubConnectionBuilder } from '@microsoft/signalr'
-import {getWithExpiry} from '../scripts/authorization.js'
+import {getWithExpiry, setWithExpiry} from '../scripts/authorization.js'
 
 
 import {UnControlled as CodeMirror} from 'react-codemirror2'
@@ -47,7 +47,7 @@ export default function Game() {
 
             connection.on('ReciveConnectionId', connection_id => {
                 const user = JSON.parse(getWithExpiry('user'))
-                const player = {id: user.userId, nickname: user.loginName, picture: user.picture, connectionId: connection_id}
+                const player = {id: user.userId, nickname: user.loginName, picture: user.picture, connectionId: connection_id, rating: user.rating, email: user.email}
                 connection.invoke('Join', player)
             })
     
@@ -58,6 +58,9 @@ export default function Game() {
             connection.on('ReciveTask', task => {
                 console.log(task)
             })
+
+            
+            
 
             
         }
@@ -89,6 +92,7 @@ export default function Game() {
                 const codeblock = document.getElementById(codeblock_data.id)
                 codeblock.querySelector('.CodeMirror').CodeMirror.setValue(codeblock_data.code)
             })
+            
 
             if(groupItems.length == 4){
                 document.getElementById('group-list').style.display = 'none'
@@ -102,7 +106,6 @@ export default function Game() {
             const team1codeblocks_elements = []
             const team2codeblocks_elements = []
             
-            console.log(group)
             team1codeblocks_elements.push(<div id='codeblock_1_1' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[0].nickname}, твої рядки непарні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
@@ -248,10 +251,86 @@ export default function Game() {
 
             setTeam1Codeblocks(team1codeblocks_elements)
             setTeam2Codeblocks(team2codeblocks_elements)
+
+            if(group) {
+                connection.on('ReceiveWin', teamId => {
+                    console.log(teamId)
+                    console.log(group)
+                    document.getElementById('winmodal').style.display = 'block'
+                    document.getElementById('win-block').style.display = 'block'
+            
+                    document.getElementById('nickname1').innerText = group.teams[0].players[0].nickname
+                    document.getElementById('nickname2').innerText = group.teams[0].players[1].nickname
+                    document.getElementById('nickname3').innerText = group.teams[1].players[0].nickname
+                    document.getElementById('nickname4').innerText = group.teams[1].players[1].nickname
+            
+                    if(group.teams[0].id == teamId){
+                        document.getElementById('win1-text').style.display = 'block'
+                        document.getElementById('win2-text').style.display = 'block'
+                        document.getElementById('lost3-text').style.display = 'block'
+                        document.getElementById('lost4-text').style.display = 'block'
+                    }
+                    if(group.teams[1].id == teamId){
+                        document.getElementById('lost1-text').style.display = 'block'
+                        document.getElementById('lost2-text').style.display = 'block'
+                        document.getElementById('win3-text').style.display = 'block'
+                        document.getElementById('win4-text').style.display = 'block'
+                    }
+            
+                    document.getElementById('win-img1').setAttribute('src', group.teams[0].players[0].picture);
+                    document.getElementById('win-img2').setAttribute('src', group.teams[0].players[1].picture);
+                    document.getElementById('win-img3').setAttribute('src', group.teams[1].players[0].picture);
+                    document.getElementById('win-img4').setAttribute('src', group.teams[1].players[1].picture);
+
+                    const change_user = JSON.parse(getWithExpiry('user'))
+                
+                    if(change_user.email == group.teams[0].players[0].email){
+                        console.log('user1')
+                        if(group.teams[0] == teamId){
+                            change_user.rating += 30
+                        }else{
+                            if(change_user.rating - 30 >= 0){
+                                change_user.rating -= 30
+                            }
+                            
+                        }
+                    }else if(change_user.email == group.teams[0].players[1].email){
+                        console.log('user2')
+                        if(group.teams[0].id == teamId){
+                            change_user.rating = parseInt(change_user.rating) + 30
+                        }else{
+                            if(change_user.rating - 30 >= 0)
+                            change_user.rating = parseInt(change_user.rating) - 30
+                        }
+                    }else if(change_user.email == group.teams[1].players[0].email){
+                        console.log('user3')
+                        if(group.teams[1].id == teamId){
+                            change_user.rating = parseInt(change_user.rating) + 30
+                        }else{
+                            if(change_user.rating - 30 >= 0)
+                            change_user.rating = parseInt(change_user.rating) - 30
+                        }
+                    }else if(change_user.email == group.teams[1].players[1].email){
+                        console.log('user4')
+                        if(group.teams[1].id == teamId){
+                            change_user.rating = parseInt(change_user.rating) + 30
+                        }else{
+                            if(change_user.rating - 30 >= 0)
+                            change_user.rating = parseInt(change_user.rating) - 30
+                        }
+                    }
+
+                    console.log(change_user)
+
+                    setWithExpiry('user', JSON.stringify(change_user), 60*60*1000)
+                })
+            }
         }
            
         }
     }, [groupItems])
+
+
 
     function check_code(e){
         const user = JSON.parse(getWithExpiry('user'))
@@ -289,22 +368,20 @@ export default function Game() {
 
         if(user.userId == group.teams[0].players[0].id || user.userId == group.teams[0].players[1].id){
             if(test_counter == group.task.tests.length){
-                console.log('path')
                 setTests1({img: done, text: 'Вітаємо, всі тести пройдено'})
+                connection.invoke("Win", group.id, group.teams[0].id)
             }
             else{
-                console.log('fail')
                 setTests1({img: close, text: 'Нажаль, не всі тести пройдено'})
             }
         }
         
         if(user.userId == group.teams[1].players[0].id || user.userId == group.teams[1].players[1].id){
             if(test_counter == group.task.tests.length){
-                console.log('path')
                 setTests2({img: done, text: 'Вітаємо, всі тести пройдено'})
+                connection.invoke("Win", group.id, group.teams[1].id)
             }
             else{
-                console.log('fail')
                 setTests2({img: close, text: 'Нажаль, не всі тести пройдено'})
             }
         }   
@@ -312,6 +389,7 @@ export default function Game() {
         
     }
 
+    
     return(
         <div>
             <Navbar></Navbar>
@@ -346,6 +424,43 @@ export default function Game() {
                     <img src={tests2.img}/>
                     <span>{tests2.text}</span>
                 </div>
+            </div>
+            <div id='winmodal'></div>
+            <div id='win-block' className='win-block' style={{display: 'none'}}>
+                <div className='win-player-block' id='win-payer1'>
+                    <img id='win-img1' src='https://lh3.googleusercontent.com/a-/AOh14GgPufXSwIz80IoTkJx-zoKTUXWvjlKbH9t4p-iG=s96-c'/>
+                    <div>
+                        <p className='win-nickname' id='nickname1'>Simplex</p>
+                        <p style={{display: 'none'}} className='win-info' id='win1-text'>Переміг та отримує <span style={{color: 'green'}}>+30</span> балів рейтингу</p>
+                        <p style={{display: 'none'}} className='win-info' id='lost1-text'>Програє <span style={{color: 'red'}}>-30</span> балів рейтингу</p>
+                    </div>
+                </div>
+                <div className='win-player-block' id='win-payer2'>
+                <img id='win-img2'  src='https://lh3.googleusercontent.com/a-/AOh14GgPufXSwIz80IoTkJx-zoKTUXWvjlKbH9t4p-iG=s96-c'/>
+                    <div>
+                        <p className='win-nickname' id='nickname2'>Simplex</p>
+                        <p style={{display: 'none'}} className='win-info' id='win2-text'>Переміг та отримує <span style={{color: 'green'}}>+30</span> балів рейтингу</p>
+                        <p style={{display: 'none'}} className='win-info' id='lost2-text'>Програє <span style={{color: 'red'}}>-30</span> балів рейтингу</p>
+                    </div>
+                </div>
+                <div className='win-player-block' id='win-payer3'>
+                    <img id='win-img3'  src='https://lh3.googleusercontent.com/a-/AOh14GgPufXSwIz80IoTkJx-zoKTUXWvjlKbH9t4p-iG=s96-c'/>
+                        <div>
+                            <p className='win-nickname' id='nickname3'>Simplex</p>
+                            <p style={{display: 'none'}}className='win-info' id='win3-text'>Переміг та отримує <span style={{color: 'green'}}>+30</span> балів рейтингу</p>
+                            <p style={{display: 'none'}}className='win-info' id='lost3-text'>Програє <span style={{color: 'red'}}>-30</span> балів рейтингу</p>
+                        </div>
+                    </div>
+                
+                <div  className='win-player-block' id='win-payer4'>
+                    <img id='win-img4' src='https://lh3.googleusercontent.com/a-/AOh14GgPufXSwIz80IoTkJx-zoKTUXWvjlKbH9t4p-iG=s96-c'/>
+                        <div>
+                            <p className='win-nickname' id='nickname4'>Simplex</p>
+                            <p style={{display: 'none'}} className='win-info' id='win4-text'>Переміг та отримує <span style={{color: 'green'}}>+30</span> балів рейтингу</p>
+                            <p style={{display: 'none'}} className='win-info' id='lost4-text'>Програє <span style={{color: 'red'}}>-30</span> балів рейтингу</p>
+                        </div>
+                </div>
+                <button onClick={(e)=>window.location.replace('http://localhost:3000')} id='finish-competition'>Завершити змагання</button>
             </div>
             
         </div>

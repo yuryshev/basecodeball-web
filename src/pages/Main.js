@@ -8,6 +8,7 @@ export default function Main(){
     const url = new URL(window.location.href)
     const url_access_token = url.searchParams.get('access_token')
 
+
     if(url_access_token != null){
         setWithExpiry('access_token', url_access_token, 60* 60 * 1000)
         window.location.replace('http://localhost:3000')

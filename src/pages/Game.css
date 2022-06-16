@@ -123,3 +123,53 @@
     padding: 15px 40px;
     border-radius: 20px;
 }
+.win-block{
+    background: #0C0C0C;
+    padding: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.win-player-block{
+    display: flex;   
+    padding: 20px;
+}
+.win-player-block img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.win-info{
+    color: #414141;
+    font-size: 14px;
+    line-height: normal;
+}
+.win-nickname{
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+#winmodal{
+    display: none;
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+#finish-competition{
+    text-align: center;
+    background: #4444FF;
+    color: #fff;
+    padding: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 20px;
+}
