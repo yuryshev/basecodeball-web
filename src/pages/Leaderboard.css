@@ -1,0 +1,44 @@
+#leaderboard{
+    margin: 50px auto;
+    width: 500px;
+    border: 20px;
+}
+.leaderboard-block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: #0c0c0c;
+    border: 1px solid black;
+}
+
+.leaderboard-block:first-child{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.leaderboard-block:last-child{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.leaderboard-block img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.nickname-text{
+    color: #fff;
+}
+.rating-text{
+    color: #cfcfcf;
+}
+.number-text{
+    font-weight: 700;
+    color: #fff;
+}

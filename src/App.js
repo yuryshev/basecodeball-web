@@ -6,6 +6,7 @@ import {
 import Main from "./pages/Main.js"
 import Registration from "./pages/Registration.js"
 import Game from "./pages/Game.js"
+import Leaderboard from "./pages/Leaderboard.js"
 
 
 export default function App(){
@@ -14,7 +15,7 @@ export default function App(){
       <Routes>
         <Route path="/" element={<Main></Main>}/>
         <Route path="/registration" element={<Registration></Registration>}/>
-        <Route path="/leaderboard" element={<h1>Leaderboard Page</h1>}/>
+        <Route path="/leaderboard" element={<Leaderboard></Leaderboard>}/>
         <Route path="/game" element={<Game></Game>}/>
       </Routes>
     </Router>
