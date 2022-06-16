@@ -1,0 +1,32 @@
+.description-container{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.description-container h1 {
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 100px;
+    margin-bottom: 30px;
+}
+
+.description-container p {
+    color: #414141;
+    font-weight: 400;
+    margin-bottom: 50px;
+    line-height: normal;
+    font-size: 20px;
+}
+
+.description-container button {
+    color: #ffffff;
+    font-weight: 400;
+    background: #4444FF;
+    font-size: 20px;
+    padding: 20px 80px;
+    border-radius: 20px;
+}

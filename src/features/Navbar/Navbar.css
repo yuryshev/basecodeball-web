@@ -1,0 +1,33 @@
+.navbar-wrapper {
+    background: #131415;
+    border-bottom: 1px solid black;
+}
+.navbar{
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-container{
+    display: flex;
+    align-items: center;
+}
+.logo-container:hover{
+    cursor: pointer;
+}
+.logo-container img{
+    width: 40px;
+    height: 40px;
+    margin-right: 6px;
+}
+.logo-text h2{
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+}
+.logo-text p{
+    color: #464646;
+    font-weight: 400;
+    font-size: 12px;
+}
