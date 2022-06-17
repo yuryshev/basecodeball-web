@@ -111,70 +111,70 @@ export default function Game() {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_1', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
             
             team1codeblocks_elements.push(<div id='codeblock_1_2' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[1].nickname}, твої рядки парні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_2', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_3' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_3', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
             
             team1codeblocks_elements.push(<div id='codeblock_1_4' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_4', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_5' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_5', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_6' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_6', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_7' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_7', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_8' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_8', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_9' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_9', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_10' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_1_10', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
           
             
@@ -184,70 +184,70 @@ export default function Game() {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_1', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
             
             team2codeblocks_elements.push(<div id='codeblock_2_2' className='codeblock'><CodeMirror value={`// ${group.teams[1].players[1].nickname}, твої рядки парні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_2', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_3' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_3', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
             
             team2codeblocks_elements.push(<div id='codeblock_2_4' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_4', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_5' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_5', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_6' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_6', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_7' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_7', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_8' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_8', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_9' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_9', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_10' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
                 if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
                     connection.invoke('SendCodeblock', {id: 'codeblock_2_10', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             setTeam1Codeblocks(team1codeblocks_elements)
             setTeam2Codeblocks(team2codeblocks_elements)

@@ -18,7 +18,7 @@ export default function Profile() {
     return (
         <div style={{display: display}} className='profile-block'>
             <span>{nickname}</span>
-            <img src={picture} alt='account-picture'/>
+            <img src={picture} alt='account-picture' referrerPolicy='no-referrer'/>
         </div>
     )
 }

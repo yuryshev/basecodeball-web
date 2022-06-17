@@ -30,7 +30,7 @@ export default function Leaderboard(){
                 <div className="leaderboard-block animate__animated animate__bounceInDown">
                     <span className="number-text">{i+1}</span>
                     <div className="user-block">
-                    <img src={user.picture}/>
+                    <img src={user.picture} referrerPolicy='no-referrer'/>
                     <span className="nickname-text">{user.loginName}</span>
                     </div>
                     <span className="rating-text">{user.rating}</span>
