@@ -17,7 +17,7 @@ export default function Main(){
     if(is_authorize()){
         if( getWithExpiry('user') == null){
             const access_token =  getWithExpiry('access_token')
-            fetch('https://localhost:5001/getuser', {
+            fetch('https://localhost:5001/getUser', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + access_token 

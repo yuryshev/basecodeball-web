@@ -11,7 +11,7 @@ export default function Profile() {
     }
     else{
         display = 'inline-block'
-        nickname = JSON.parse(getWithExpiry('user')).loginName
+        nickname = JSON.parse(getWithExpiry('user')).nickName
         picture = JSON.parse(getWithExpiry('user')).picture
     }
 

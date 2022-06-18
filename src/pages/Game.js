@@ -45,24 +45,17 @@ export default function Game() {
             })
             .catch(err => console.log('connection failed', err))
 
-            connection.on('ReciveConnectionId', connection_id => {
+            connection.on('ReceiveConnectionId', connection_id => {
                 const user = JSON.parse(getWithExpiry('user'))
-                const player = {id: user.userId, nickname: user.loginName, picture: user.picture, connectionId: connection_id, rating: user.rating, email: user.email}
-                connection.invoke('Join', player)
+                user.connectionId = connection_id
+                console.log(user)
+                connection.invoke('Join', user)
             })
     
-            connection.on('ReciveGroup', data => {
+            connection.on('ReceiveGroup', data => {
+                console.log(data)
                 setGroup(data)
-            })
-    
-            connection.on('ReciveTask', task => {
-                console.log(task)
-            })
-
-            
-            
-
-            
+            })  
         }
     }, [connection])
 
@@ -73,7 +66,7 @@ export default function Game() {
             for(let i = 0; i< group.teams.length; i++){
                 for(let j = 0; j < group.teams[i].players.length; j++){
                     const element = group.teams[i].players[j]
-                    lobby_elemets.push(<PlayerLobbyInfo key={counter} picture={element.picture} nickname={element.nickname}></PlayerLobbyInfo>)
+                    lobby_elemets.push(<PlayerLobbyInfo key={counter} picture={element.picture} nickname={element.nickName}></PlayerLobbyInfo>)
                     counter++
                 }
             }
@@ -89,7 +82,7 @@ export default function Game() {
 
             connection.on('ReceiveCodeblock', codeblock_data => {
 
-                const codeblock = document.getElementById(codeblock_data.id)
+                const codeblock = document.getElementById(codeblock_data.userId)
                 codeblock.querySelector('.CodeMirror').CodeMirror.setValue(codeblock_data.code)
             })
             
@@ -106,148 +99,148 @@ export default function Game() {
             const team1codeblocks_elements = []
             const team2codeblocks_elements = []
             
-            team1codeblocks_elements.push(<div id='codeblock_1_1' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[0].nickname}, твої рядки непарні ♥`} options={codemirror_options} 
+            team1codeblocks_elements.push(<div id='codeblock_1_1' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[0].nickName}, твої рядки непарні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_1', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_1', groupId: group.id, clientId: group.teams[0].players[0].userId, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
             
-            team1codeblocks_elements.push(<div id='codeblock_1_2' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[1].nickname}, твої рядки парні ♥`} options={codemirror_options} 
+            team1codeblocks_elements.push(<div id='codeblock_1_2' className='codeblock'><CodeMirror value={`// ${group.teams[0].players[1].nickName}, твої рядки парні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_2', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_2', groupId: group.id, clientId: group.teams[0].players[1].userId, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_3' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_3', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_3', groupId: group.id, clientId: group.teams[0].players[0].userId, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
             
             team1codeblocks_elements.push(<div id='codeblock_1_4' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_4', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_4', groupId: group.id, clientId: group.teams[0].players[1].userId, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_5' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_5', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_5', groupId: group.id, clientId: group.teams[0].players[0].userId, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_6' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_6', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_6', groupId: group.id, clientId: group.teams[0].players[1].userId, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_7' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_7', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_7', groupId: group.id, clientId: group.teams[0].players[0].userId, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_8' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_8', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_8', groupId: group.id, clientId: group.teams[0].players[1].userId, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_9' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_9', groupId: group.id, clientId: group.teams[0].players[0].id, code: value, connectionId: group.teams[0].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_9', groupId: group.id, clientId: group.teams[0].players[0].userId, code: value, connectionId: group.teams[0].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[0].picture}/></div></div>)
 
             team1codeblocks_elements.push(<div id='codeblock_1_10' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_1_10', groupId: group.id, clientId: group.teams[0].players[1].id, code: value, connectionId: group.teams[0].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[0].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_1_10', groupId: group.id, clientId: group.teams[0].players[1].userId, code: value, connectionId: group.teams[0].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[0].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[0].players[1].picture}/></div></div>)
 
           
             
             // team2
-            team2codeblocks_elements.push(<div id='codeblock_2_1' className='codeblock'><CodeMirror value={`// ${group.teams[1].players[0].nickname}, твої рядки непарні ♥`} options={codemirror_options} 
+            team2codeblocks_elements.push(<div id='codeblock_2_1' className='codeblock'><CodeMirror value={`// ${group.teams[1].players[0].nickName}, твої рядки непарні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_1', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_1', groupId: group.id, clientId: group.teams[1].players[0].userId, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
             
-            team2codeblocks_elements.push(<div id='codeblock_2_2' className='codeblock'><CodeMirror value={`// ${group.teams[1].players[1].nickname}, твої рядки парні ♥`} options={codemirror_options} 
+            team2codeblocks_elements.push(<div id='codeblock_2_2' className='codeblock'><CodeMirror value={`// ${group.teams[1].players[1].nickName}, твої рядки парні ♥`} options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_2', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_2', groupId: group.id, clientId: group.teams[1].players[1].userId, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_3' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_3', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_3', groupId: group.id, clientId: group.teams[1].players[0].userId, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
             
             team2codeblocks_elements.push(<div id='codeblock_2_4' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_4', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_4', groupId: group.id, clientId: group.teams[1].players[1].userId, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_5' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_5', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_5', groupId: group.id, clientId: group.teams[1].players[0].userId, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_6' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_6', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_6', groupId: group.id, clientId: group.teams[1].players[1].userId, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_7' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_7', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_7', groupId: group.id, clientId: group.teams[1].players[0].userId, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_8' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_8', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_8', groupId: group.id, clientId: group.teams[1].players[1].userId, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_9' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_9', groupId: group.id, clientId: group.teams[1].players[0].id, code: value, connectionId: group.teams[1].players[0].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[0].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_9', groupId: group.id, clientId: group.teams[1].players[0].userId, code: value, connectionId: group.teams[1].players[0].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[0].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[0].picture}/></div></div>)
 
             team2codeblocks_elements.push(<div id='codeblock_2_10' className='codeblock'><CodeMirror options={codemirror_options} 
             onChange={(editor, data, value) => {
-                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].id){
-                    connection.invoke('SendCodeblock', {id: 'codeblock_2_10', groupId: group.id, clientId: group.teams[1].players[1].id, code: value, connectionId: group.teams[1].players[1].connectionId})
+                if(JSON.parse(getWithExpiry('user')).userId == group.teams[1].players[1].userId){
+                    connection.invoke('SendCodeblock', {id: 'codeblock_2_10', groupId: group.id, clientId: group.teams[1].players[1].userId, code: value, connectionId: group.teams[1].players[1].connectionId})
                 }
-            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickname}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
+            }}></CodeMirror><div className='codeblock-info'><span className='codeblock-nickname'>{group.teams[1].players[1].nickName}</span><img className='codeblock-img' referrerPolicy='no-referrer' src={group.teams[1].players[1].picture}/></div></div>)
 
             setTeam1Codeblocks(team1codeblocks_elements)
             setTeam2Codeblocks(team2codeblocks_elements)
@@ -259,10 +252,10 @@ export default function Game() {
                     document.getElementById('winmodal').style.display = 'block'
                     document.getElementById('win-block').style.display = 'block'
             
-                    document.getElementById('nickname1').innerText = group.teams[0].players[0].nickname
-                    document.getElementById('nickname2').innerText = group.teams[0].players[1].nickname
-                    document.getElementById('nickname3').innerText = group.teams[1].players[0].nickname
-                    document.getElementById('nickname4').innerText = group.teams[1].players[1].nickname
+                    document.getElementById('nickname1').innerText = group.teams[0].players[0].nickName
+                    document.getElementById('nickname2').innerText = group.teams[0].players[1].nickName
+                    document.getElementById('nickname3').innerText = group.teams[1].players[0].nickName
+                    document.getElementById('nickname4').innerText = group.teams[1].players[1].nickName
             
                     if(group.teams[0].id == teamId){
                         document.getElementById('win1-text').style.display = 'block'
@@ -335,14 +328,14 @@ export default function Game() {
     function check_code(e){
         const user = JSON.parse(getWithExpiry('user'))
         let code = ''
-        if(user.userId == group.teams[0].players[0].id || user.userId == group.teams[0].players[1].id){
+        if(user.userId == group.teams[0].players[0].userId || user.userId == group.teams[0].players[1].userId){
             for(let i = 1; i <= 10; i++){
                 const codeblock = document.getElementById('codeblock_1_' + i)
                 code+=codeblock.querySelector('.CodeMirror').CodeMirror.getValue() + '\n'
             }
         }
 
-        if(user.userId == group.teams[1].players[0].id || user.userId == group.teams[1].players[1].id){
+        if(user.userId == group.teams[1].players[0].userId || user.userId == group.teams[1].players[1].userId){
             for(let i = 1; i <= 10; i++){
                 const codeblock = document.getElementById('codeblock_2_' + i)
                 code+=codeblock.querySelector('.CodeMirror').CodeMirror.getValue() + '\n'
@@ -366,9 +359,10 @@ export default function Game() {
 
         console.log(test_counter)
 
-        if(user.userId == group.teams[0].players[0].id || user.userId == group.teams[0].players[1].id){
+        if(user.userId == group.teams[0].players[0].userId || user.userId == group.teams[0].players[1].userId){
             if(test_counter == group.task.tests.length){
                 setTests1({img: done, text: 'Вітаємо, всі тести пройдено'})
+                console.log(group);
                 connection.invoke("Win", group.id, group.teams[0].id)
             }
             else{
@@ -376,7 +370,7 @@ export default function Game() {
             }
         }
         
-        if(user.userId == group.teams[1].players[0].id || user.userId == group.teams[1].players[1].id){
+        if(user.userId == group.teams[1].players[0].userId || user.userId == group.teams[1].players[1].userId){
             if(test_counter == group.task.tests.length){
                 setTests2({img: done, text: 'Вітаємо, всі тести пройдено'})
                 connection.invoke("Win", group.id, group.teams[1].id)

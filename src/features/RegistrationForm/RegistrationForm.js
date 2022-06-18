@@ -11,12 +11,12 @@ export default function RegistrationForm(){
         const nickname = document.getElementById('nickname').value
         console.log(nickname, email, picture)
         
-        fetch(`https://localhost:5001/reg?email=${email}&loginName=${nickname}&picture=${picture}`, {
+        fetch(`https://localhost:5001/reg?email=${email}&nickName=${nickname}&picture=${picture}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "email": email, "loginName": nickname })
+            body: JSON.stringify({ "email": email, "nickName": nickname })
         }).then((response) => {
             return response.json();
         }).then((data) => {

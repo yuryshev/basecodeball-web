@@ -31,7 +31,7 @@ export default function Leaderboard(){
                     <span className="number-text">{i+1}</span>
                     <div className="user-block">
                     <img src={user.picture} referrerPolicy='no-referrer'/>
-                    <span className="nickname-text">{user.loginName}</span>
+                    <span className="nickname-text">{user.nickName}</span>
                     </div>
                     <span className="rating-text">{user.rating}</span>
                 </div>
