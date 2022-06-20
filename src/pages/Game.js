@@ -82,7 +82,7 @@ export default function Game() {
 
             connection.on('ReceiveCodeblock', codeblock_data => {
 
-                const codeblock = document.getElementById(codeblock_data.userId)
+                const codeblock = document.getElementById(codeblock_data.id)
                 codeblock.querySelector('.CodeMirror').CodeMirror.setValue(codeblock_data.code)
             })
             
