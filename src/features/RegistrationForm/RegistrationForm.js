@@ -26,7 +26,7 @@ export default function RegistrationForm(){
 
     return(
         <form className="registration-from"> 
-            <h1>Ви тут впрше нумо реєструватися!</h1>
+            <h1>Ви тут вперше! Нумо реєструватися!</h1>
             <input id='nickname' type='text'></input>
             <button onClick={handle_click}>Підтвердити!</button>
         </form>
